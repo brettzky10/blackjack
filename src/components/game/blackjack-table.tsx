@@ -36,7 +36,7 @@ const CurvedText = ({
 
 export default function BlackjackTable({ children }: BlackjackTableProps) {
   return (
-    <div className="relative w-full aspect-[16/10] max-w-7xl mx-auto">
+   <div className="relative w-full max-w-7xl mx-auto aspect-[4/5] sm:aspect-[16/10] min-h-[650px] sm:min-h-0">
       {/* Outer table structure */}
       <div className="absolute inset-0 bg-amber-900 rounded-t-[50%] shadow-2xl" />
       <div className="absolute inset-x-[2%] inset-y-[2%] bg-green-800 rounded-t-[50%]" />

@@ -615,7 +615,7 @@ export default function BlackjackGame() {
       <Button
         onClick={onClick}
         disabled={disabled}
-        className={`relative text-white font-bold shadow-lg transition-all duration-300 rounded-full px-6 py-3 ${colorClass} ${
+        className={`relative text-white font-bold shadow-lg transition-all duration-300 rounded-xl sm:rounded-full px-3 sm:px-6 py-2 sm:py-3 text-sm sm:text-base ${colorClass} ${
           disabled ? "bg-opacity-50 cursor-not-allowed" : "hover:bg-opacity-90"
         }`}
       >
@@ -648,7 +648,8 @@ export default function BlackjackGame() {
   }
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-center bg-slate-900 p-2 md:p-4 overflow-hidden">
+    <div className="min-h-dvh w-full bg-slate-900 overflow-x-hidden overflow-y-auto">
+  <div className="flex flex-col items-center p-2 md:p-4">
       <GameMenu
         isOpen={showGameMenu}
         onClose={() => setShowGameMenu(false)}
@@ -678,10 +679,10 @@ export default function BlackjackGame() {
           )}
         </AnimatePresence>
 
-        <div className="flex-grow flex flex-col items-center">
+        <div className="grow flex flex-col items-center">
           <BlackjackTable>
             {/* Top Bar */}
-            <div className="absolute top-4 left-4 right-4 flex justify-between items-start z-20">
+            <div className="absolute top-2 left-2 right-2 sm:top-4 sm:left-4 sm:right-4 flex justify-between items-start z-20 gap-2">
               <div className="relative">
                 <CardCountDisplay
                   runningCount={runningCount}
@@ -698,8 +699,11 @@ export default function BlackjackGame() {
                   runningCount={runningCount}
                 />
               </div>
-              <div className="flex items-center gap-2">
-                <Badge variant="outline" className="bg-yellow-500 text-black font-bold text-lg">
+              <div className="flex items-center gap-1 sm:gap-2">
+                <Badge
+                  variant="outline"
+                  className="bg-yellow-500 text-black font-bold text-xs sm:text-lg px-2 sm:px-4 py-1"
+                >
                   <Coins className="mr-2 h-5 w-5" />${playerMoney}
                 </Badge>
                 <Button variant="outline" size="icon" onClick={() => setShowGameMenu(true)}>
@@ -709,11 +713,11 @@ export default function BlackjackGame() {
             </div>
 
             {/* Dealer Area */}
-            <div className="absolute top-[15%] w-full flex flex-col items-center">
+            <div className="absolute top-[12%] sm:top-[15%] w-full flex flex-col items-center px-2">
               <h2 className="text-lg font-semibold text-white/80 mb-2">
                 Dealer {!dealerCardHidden && `(${getHandInfo(dealerHand).display})`}
               </h2>
-              <div className="flex gap-2 justify-center h-32 relative -space-x-12">
+              <div className="flex justify-center h-24 sm:h-32 relative -space-x-8 sm:-space-x-12">
                 {dealerHand.map((card, index) => (
                   <motion.div key={`dealer-${index}`} layoutId={`dealer-${index}`} style={{ zIndex: index }}>
                     <PlayingCard
@@ -726,7 +730,8 @@ export default function BlackjackGame() {
             </div>
 
             {/* Player Betting Spots */}
-            <div className="absolute bottom-[25%] w-full flex justify-around items-end">
+            <div className="absolute bottom-[28%] sm:bottom-[25%] w-full px-2">
+              <div className="flex flex-row justify-around items-end gap-2 sm:gap-4">
               {playerHands.map((hands, index) => (
                 <BettingSpot
                   key={index}
@@ -739,10 +744,11 @@ export default function BlackjackGame() {
                   playerMoney={playerMoney}
                 />
               ))}
+              </div>
             </div>
 
             {/* Action Buttons / Message Area */}
-            <div className="absolute bottom-[8%] w-full flex items-center justify-center pointer-events-auto">
+            <div className="absolute bottom-[calc(8%+env(safe-area-inset-bottom))] w-full flex items-center justify-center pointer-events-auto px-2">
               {gameState === "betting" && (
                 <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
                   <Button
@@ -760,7 +766,7 @@ export default function BlackjackGame() {
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex flex-wrap justify-center gap-3"
+                  className="grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-2 sm:gap-3 px-2 w-full max-w-md"
                 >
                   {renderActionButton(
                     "Hit",
@@ -803,7 +809,7 @@ export default function BlackjackGame() {
           </BlackjackTable>
 
           {/* Bottom Bar */}
-          <div className="w-full max-w-7xl mt-4 flex justify-between items-center gap-4">
+          <div className="w-full max-w-7xl mt-4 flex flex-col sm:flex-row justify-between items-center gap-4 pb-6">
             <div className="flex gap-2 items-center">
               <Button
                 variant="outline"
@@ -818,7 +824,7 @@ export default function BlackjackGame() {
 
             <HandHistoryFeed history={roundHistory} />
 
-            <div className="flex justify-end w-64">
+            <div className="flex justify-center sm:justify-end w-full sm:w-64">
               <CardDeck cardsRemaining={deck.length} />
             </div>
           </div>
@@ -831,6 +837,7 @@ export default function BlackjackGame() {
         )}
       </AnimatePresence>
       <DecisionFeedback decision={currentDecision} onComplete={clearDecisionFeedback} />
+    </div>
     </div>
   )
 }

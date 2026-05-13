@@ -42,6 +42,10 @@ export default function BettingSpot({
   const [currentBet, setCurrentBet] = useState(0)
   const [isBetting, setIsBetting] = useState(false)
 
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 640
+
+  
+
   const handleConfirmBet = () => {
     if (playerMoney >= currentBet && currentBet > 0) {
       onAddHand(spotIndex, currentBet)
@@ -63,6 +67,8 @@ export default function BettingSpot({
       setCurrentBet((prev) => prev + amount)
     }
   }
+
+  
 
   const renderBettingInterface = () => (
     <motion.div
@@ -131,38 +137,45 @@ export default function BettingSpot({
     </AnimatePresence>
   )
 
+
   const renderHands = () => {
     const handCount = hands.length
     const isSplit = handCount > 1
     const containerClass = isSplit ? "flex justify-center items-center gap-1" : "relative"
     const handWrapperClass = isSplit ? "w-1/2 h-full relative" : "w-full h-full relative"
 
+    
+
     return (
       <div className={containerClass}>
         {hands.map((hand, handIndex) => {
           const handInfo = getHandInfo(hand.cards)
+          
           return (
             <div key={handIndex} className={handWrapperClass}>
               {/* Cards */}
-              <div
-                className={`absolute inset-0 flex items-start justify-center pt-2 ${isSplit ? "-space-x-14" : "-space-x-12"}`}
-              >
+              <div className="absolute inset-0 flex items-start justify-center pt-2 px-1 overflow-visible">
                 <AnimatePresence>
                   {hand.cards.map((card, cardIndex) => {
                     const isDoubleDownCard = hand.isDoubled && cardIndex === hand.cards.length - 1
+
+                    const offsetX = isSplit
+                      ? cardIndex * (typeof window !== "undefined" && window.innerWidth < 640 ? 10 : 14)
+                      : cardIndex * (typeof window !== "undefined" && window.innerWidth < 640 ? 14 : 18)
                     return (
                       <motion.div
                         key={`player-${spotIndex}-${handIndex}-${cardIndex}`}
                         initial={{ scale: 0, y: -100, opacity: 0 }}
                         animate={{ scale: 1, y: 0, opacity: 1 }}
-                        transition={{ type: "spring", stiffness: 300, damping: 20, delay: cardIndex * 0.1 }}
+                        transition={{ type: "spring", stiffness: 300, damping: 20, delay: cardIndex * 0.08 }}
                         layout
                         className="relative"
                         style={{
-                          zIndex: cardIndex,
-                          transform: `scale(${isSplit ? 0.8 : 1})`,
+                          position: "absolute",
+                          left: `${offsetX}px`,                     zIndex: cardIndex,
+                          transform: `scale(${isMobile ? (isSplit ? 0.55 : 0.7) : isSplit ? 0.8 : 1})`,
                           ...(isDoubleDownCard && {
-                            transform: `scale(${isSplit ? 0.8 : 1}) translateY(-15px) translateX(10px)`,
+                            transform: `scale(${isMobile ? (isSplit ? 0.55 : 0.7) : isSplit ? 0.8 : 1}) translateY(-15px) translateX(10px)`,
                           }),
                         }}
                       >
@@ -194,7 +207,7 @@ export default function BettingSpot({
 
   return (
     <div
-      className={`relative w-40 h-40 rounded-full border-2 ${
+      className={`relative w-24 h-24 sm:w-40 sm:h-40 rounded-full border-2 ${
         isSpotActive ? "border-yellow-400 shadow-xl shadow-yellow-400/20" : "border-dashed border-white/10"
       } transition-all duration-300`}
     >

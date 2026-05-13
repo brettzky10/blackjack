@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Label } from "@/components/ui/label"
 import { motion } from "framer-motion"
+import StackedPanels from "./card-stack"
 
 interface LoginScreenProps {
   onLogin: (username: string) => void
@@ -39,16 +40,17 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
     <motion.div
       initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="fixed inset-0 bg-green-800 flex items-center justify-center z-50 p-4"
+      className="fixed inset-0 bg-zinc-950 flex items-center justify-center z-50 p-4 flex-col"
     >
-      <Card className="w-full max-w-md bg-green-700 text-white border-2 border-yellow-500">
+      
+      <Card className="w-full max-w-md bg-gradient-tr from-green-700 to-emerald-600 text-white border-2 border-emerald-700">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl">Welcome to Blackjack!</CardTitle>
-          <CardDescription className="text-green-200">
-            Please enter a username to play and track your progress.
+          <CardDescription className="text-zinc-400">
+            A card counting game.
           </CardDescription>
         </CardHeader>
-        <form onSubmit={handleSubmit}>
+        {/* <form onSubmit={handleSubmit}>
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="username" className="text-green-100">
@@ -70,7 +72,7 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
             <Button type="submit" className="w-full bg-yellow-500 hover:bg-yellow-600 text-green-900 font-bold">
               Play Now
             </Button>
-            {/* Temporary Skip Button for Development */}
+           
             <Button
               type="button"
               onClick={handleSkip}
@@ -80,8 +82,17 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
               Skip (Dev Only)
             </Button>
           </CardFooter>
-        </form>
+        </form> */}
+        <Button
+              type="button"
+              onClick={handleSkip}
+              variant="ghost"
+              className="w-full text-white bg-zinc-500 hover:bg-emerald-600 hover:text-white"
+            >
+              Play
+            </Button>
       </Card>
+      <StackedPanels/>
     </motion.div>
   )
 }

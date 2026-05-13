@@ -56,7 +56,7 @@ export default function CountHistoryDropdown({ history, isOpen, onToggle, runnin
           initial={{ opacity: 0, y: -10, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: -10, scale: 0.95 }}
-          className="absolute top-full left-0 mt-2 w-80 z-40"
+          className="absolute top-full left-0 mt-2 w-[90vw] max-w-80 z-40"
         >
           <Card className="bg-slate-800 text-white border border-slate-600 shadow-xl">
             <CardHeader className="bg-slate-900 p-3">
