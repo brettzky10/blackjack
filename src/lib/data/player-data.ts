@@ -13,6 +13,8 @@ export interface PlayerData {
     blackjacks: number
     bestStreak: number
     worstStreak: number
+    startingMoney: number,
+  endingMoney: number,
   }
   handHistory: HandHistoryEntry[] // Add hand history for persistence
 }

@@ -56,6 +56,9 @@ interface GameStats {
   blackjacks: number
   bestStreak: number
   worstStreak: number
+
+  startingMoney: number
+  endingMoney: number
 }
 
 const INITIAL_BANKROLL = 10000
@@ -96,6 +99,8 @@ export default function BlackjackGame() {
     blackjacks: 0,
     bestStreak: 0,
     worstStreak: 0,
+    startingMoney: INITIAL_BANKROLL,
+    endingMoney: INITIAL_BANKROLL,
   })
   const [currentStreak, setCurrentStreak] = useState<number>(0)
 
@@ -131,6 +136,8 @@ export default function BlackjackGame() {
         blackjacks: 0,
         bestStreak: 0,
         worstStreak: 0,
+        startingMoney: INITIAL_BANKROLL,
+  endingMoney: INITIAL_BANKROLL,
       }
       setPlayerMoney(INITIAL_BANKROLL)
       setGameStats(initialStats)

@@ -12,7 +12,7 @@ interface CardCountDisplayProps {
   onClick: () => void
   isVisible: boolean
   onToggleVisibility: () => void
-  showCountHistory: boolean
+  //showCountHistory: boolean
 }
 
 export default function CardCountDisplay({
@@ -22,7 +22,7 @@ export default function CardCountDisplay({
   onClick,
   isVisible,
   onToggleVisibility,
-  showCountHistory,
+  //showCountHistory,
 }: CardCountDisplayProps) {
   const getCountColor = (count: number) => {
     if (count > 2) return "bg-green-600 hover:bg-green-700"
@@ -74,7 +74,7 @@ export default function CardCountDisplay({
               className="p-0 h-auto text-xs text-white/50 hover:bg-transparent hover:text-white/50 flex items-center gap-1"
             >
               History
-              {showCountHistory ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />}
+              {/* {showCountHistory ? <ChevronDown className="h-3 w-3" /> : <ChevronRight className="h-3 w-3" />} */}
             </Button>
           </div>
         </motion.div>

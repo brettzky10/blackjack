@@ -1,4 +1,4 @@
-"use client"
+/* "use client"
 
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
@@ -1135,3 +1135,4 @@ export default function BlackjackGame() {
     </div>
   )
 }
+ */
