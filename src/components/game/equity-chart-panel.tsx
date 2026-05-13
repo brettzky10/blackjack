@@ -34,16 +34,20 @@ export default function EquityChartPanel({ history }: EquityChartPanelProps) {
   const [isMinimized, setIsMinimized] = useState(true)
 
   const chartData = useMemo(() => {
-    let cumulativeProfit = 0
-    return history.map((entry) => {
-      cumulativeProfit += entry.profitOrLoss
-      return {
-        handNumber: entry.handNumber,
-        cumulativeProfit: cumulativeProfit,
-        handProfit: entry.profitOrLoss,
-      }
-    })
-  }, [history])
+  let cumulativeProfit = 0
+
+  return history.map((entry) => {
+    cumulativeProfit += entry.profitOrLoss
+
+    return {
+      handNumber: entry.handNumber,
+      cumulativeProfit,
+      handProfit: entry.profitOrLoss,
+      profitPositive: cumulativeProfit >= 0 ? cumulativeProfit : null,
+      profitNegative: cumulativeProfit < 0 ? cumulativeProfit : null,
+    }
+  })
+}, [history])
 
   const latestProfit = chartData.length > 0 ? chartData[chartData.length - 1].cumulativeProfit : 0
   const profitColor = latestProfit > 0 ? "text-green-400" : latestProfit < 0 ? "text-red-400" : "text-slate-300"
@@ -112,18 +116,18 @@ export default function EquityChartPanel({ history }: EquityChartPanelProps) {
                 <Tooltip content={<CustomTooltip />} />
                 <Area
                   type="monotone"
-                  dataKey="cumulativeProfit"
+                  dataKey="profitPositive"
                   stroke="#38bdf8"
-                  fillOpacity={1}
                   fill="url(#colorProfit)"
+                  connectNulls
                 />
+
                 <Area
                   type="monotone"
-                  dataKey="cumulativeProfit"
-                  stroke="#38bdf8"
-                  fillOpacity={1}
+                  dataKey="profitNegative"
+                  stroke="#ef4444"
                   fill="url(#colorLoss)"
-                  filter={(d) => d.cumulativeProfit < 0}
+                  connectNulls
                 />
                 <Brush dataKey="handNumber" height={20} stroke="#818cf8" fill="rgba(129, 140, 248, 0.1)" />
               </AreaChart>

@@ -12,7 +12,6 @@ interface CardCountDisplayProps {
   onClick: () => void
   isVisible: boolean
   onToggleVisibility: () => void
-  //showCountHistory: boolean
 }
 
 export default function CardCountDisplay({
@@ -22,7 +21,6 @@ export default function CardCountDisplay({
   onClick,
   isVisible,
   onToggleVisibility,
-  //showCountHistory,
 }: CardCountDisplayProps) {
   const getCountColor = (count: number) => {
     if (count > 2) return "bg-green-600 hover:bg-green-700"

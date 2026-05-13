@@ -66,7 +66,8 @@ export default function PlayingCard({
   // CARD BACK
   if (hidden || !card) {
     return (
-      <motion.div {...baseMotionProps}>
+      <div className={rotated ? "rotate-90" : ""} style={{ filter: "drop-shadow(-2px 2px 3px rgba(0,0,0,0.4))" }}>
+      <motion.div {...baseMotionProps} style={{ transformStyle: "preserve-3d" }}>
         <Card
           className={`${sizeClass} flex items-center justify-center bg-blue-800 border border-white/70`}
         >
@@ -77,6 +78,7 @@ export default function PlayingCard({
           </div>
         </Card>
       </motion.div>
+      </div>
     )
   }
 
@@ -91,7 +93,8 @@ export default function PlayingCard({
   }[card.suit]
 
   return (
-    <motion.div {...baseMotionProps}>
+    <div className={rotated ? "rotate-90" : ""} style={{ filter: "drop-shadow(-2px 2px 3px rgba(0,0,0,0.4))" }}>
+    <motion.div {...baseMotionProps} style={{ transformStyle: "preserve-3d" }}>
       <Card
         className={`${sizeClass} bg-white flex flex-col p-1 sm:p-2 relative`}
       >
@@ -114,6 +117,7 @@ export default function PlayingCard({
         </div>
       </Card>
     </motion.div>
+    </div>
   )
 }
 
